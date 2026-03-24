@@ -130,8 +130,7 @@ cdef class CyTriangle:
             self.validate_input_flags(triflags)
         opts = f"{'Q' if not verbose else 'V'}z{triflags}".encode('utf-8')
         with _triangle_lock:
-            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) \
-                    is not None:
+            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) != 0:
                 raise RuntimeError('Triangulation failed')
         return self.out
 
@@ -147,8 +146,7 @@ cdef class CyTriangle:
         """
         opts = f"{'Q' if not verbose else 'V'}z".encode('utf-8')
         with _triangle_lock:
-            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) \
-                    is not None:
+            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) != 0:
                 raise RuntimeError('Delaunay triangulation failed')
         return self.out
 
@@ -165,8 +163,7 @@ cdef class CyTriangle:
         """
         opts = f"{'Q' if not verbose else 'V'}zc".encode('utf-8')
         with _triangle_lock:
-            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) \
-                    is not None:
+            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) != 0:
                 raise RuntimeError("""Delaunay triangulation and convex hull
                                    construction failed""")
         return self.out
@@ -184,8 +181,7 @@ cdef class CyTriangle:
         """
         opts = f"{'Q' if not verbose else 'V'}zv".encode('utf-8')
         with _triangle_lock:
-            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) \
-                    is not None:
+            if ctriangulate(opts, self._in._io, self._out._io, self._vorout._io) != 0:
                 raise RuntimeError("""Delaunay triangulation and generation of
                                    voronoi diagram failed""")
         return self.out
